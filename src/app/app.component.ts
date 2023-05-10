@@ -9,6 +9,7 @@ import { DialogoAddEditComponent } from './Dialog/dialogo-add-edit/dialogo-add-e
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogoDeleteComponent } from './Dialog/dialogo-delete/dialogo-delete.component';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -101,7 +102,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   dialogEliminarFactura(dataFactura: Facturas) {
     this.dialog
-      .open(DialogoDeleteComponent, { disableClose: true, data: dataFactura })
+      .open(DialogoDeleteComponent, { disableClose: true , data:dataFactura})
       .afterClosed()
       .subscribe((res) => {
         if (res === 'eliminar') {
@@ -116,5 +117,20 @@ export class AppComponent implements AfterViewInit, OnInit {
           });
         }
       });
+  }
+
+  dialogEnviarEmail(dataFactura: Facturas) {
+    this._facturaServicio.sendEmail(dataFactura.codigoFactura).subscribe({
+      next: (data) => {
+        this.verAlerta(
+          'El correo con el cambio de estado fue enviado',
+          'Listo'
+        ),
+          this.listarFacturas();
+      },
+      error: (e) => {
+        this.verAlerta('No se pudo enviar el correo', 'Error');
+      },
+    });
   }
 }

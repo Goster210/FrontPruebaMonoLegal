@@ -32,6 +32,10 @@ export class FacturasService {
     return this.http.delete<void>(`${this.apiUrl}eliminar/${codigoFactura}`);
   }
 
+  sendEmail(codigoFactura:string):Observable<void>{
+    return this.http.get<void>(`${this.apiUrl}enviarCorreo/${codigoFactura}`);
+  }
+
 
 
 }
