@@ -96,38 +96,38 @@
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Fecha de Creacion</mat-label>
-          <input
-            matInput
-            formControlName="fechaCreacion"
-            autocomplete="off"
-            type="date"
-          />
+          <input matInput [matDatepicker]="picker" formControlName="fechaCreacion">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Estado</mat-label>
-          <input matInput formControlName="estado" autocomplete="off" />
+          <mat-select formControlName="estado" >
+            <mat-option value="primerrecordatorio">primerrecordatorio</mat-option>
+            <mat-option value="segundorecordatorio">segundorecordatorio</mat-option>
+          </mat-select>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field appearance="outline">
-          <mat-label>Pagada</mat-label>
-          <input matInput formControlName="pagada" autocomplete="off" />
-        </mat-form-field>
-      </mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>Pagada</mat-label>
+        <mat-select formControlName="pagada">
+          <mat-option value="true">true</mat-option>
+          <mat-option value="false">false</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-label>Fecha de Pago</mat-label>
-          <input
-            matInput
-            formControlName="fechaPago"
-            autocomplete="off"
-            type="date"
-          />
+          <mat-label>Fecha de pago</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="fechaPago">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>

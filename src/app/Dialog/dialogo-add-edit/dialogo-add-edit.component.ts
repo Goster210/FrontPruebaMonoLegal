@@ -1,7 +1,7 @@
-import { Component, OnInit, importProvidersFrom } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import * as moment from 'moment';
@@ -36,7 +36,8 @@ export class DialogoAddEditComponent implements OnInit {
     private _facturaServicio: FacturasService,
     private dialogoReferencia: MatDialogRef<DialogoAddEditComponent>,
     private fb: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public dataFactura: Facturas
   ) {
     this.formFactura = this.fb.group({
       codigoFactura: ['', Validators.required],
@@ -56,40 +57,74 @@ export class DialogoAddEditComponent implements OnInit {
   }
 
   verAlerta(message: string, action: string) {
-    this._snackBar.open(message, action,{
-      horizontalPosition:"end",
-      verticalPosition:"top",
-      duration: 3000
+    this._snackBar.open(message, action, {
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      duration: 3000,
     });
   }
-  addFactura(){
 
-    console.log(this.formFactura.value)
-    const modelo:Facturas ={
-    codigoFactura:this.formFactura.value.codigoFactura,
-    cliente:this.formFactura.value.cliente, 
-    correo:this.formFactura.value.correo, 
-    ciudad:this.formFactura.value.ciudad, 
-    nit:this.formFactura.value.nit,
-    totalFactura:this.formFactura.value.totalFactura,
-    subTotal:this.formFactura.value.subTotal,
-    iva:this.formFactura.value.iva,
-    retencion:this.formFactura.value.retencion,
-    fechaCreacion:this.formFactura.value.fechaCreacion, 
-    estado:this.formFactura.value.estado, 
-    pagada:Boolean(this.formFactura.value.pagada),
-    fechaPago:this.formFactura.value.fechaPago
+  addFactura() {
+    console.log(this.formFactura.value);
+    const modelo: Facturas = {
+      codigoFactura: this.formFactura.value.codigoFactura,
+      cliente: this.formFactura.value.cliente,
+      correo: this.formFactura.value.correo,
+      ciudad: this.formFactura.value.ciudad,
+      nit: this.formFactura.value.nit,
+      totalFactura: this.formFactura.value.totalFactura,
+      subTotal: this.formFactura.value.subTotal,
+      iva: this.formFactura.value.iva,
+      retencion: this.formFactura.value.retencion,
+      fechaCreacion: this.formFactura.value.fechaCreacion,
+      estado: this.formFactura.value.estado,
+      pagada: Boolean(this.formFactura.value.pagada),
+      fechaPago: this.formFactura.value.fechaPago,
+    };
+
+    if (this.dataFactura == null) {
+      this._facturaServicio.add(modelo).subscribe({
+        next: (data) => {
+          this.verAlerta('Factrua Creada Con exito', 'Listo'),
+            this.dialogoReferencia.close('creado');
+        },
+        error: (e) => {
+          this.verAlerta('No se pudo crear', 'Error');
+        },
+      });
+    }else{
+      this._facturaServicio.update(this.dataFactura.codigoFactura, modelo).subscribe({
+        next: (data) => {
+          this.verAlerta('Factrua Editada con exito', 'Listo'),
+            this.dialogoReferencia.close('editado');
+        },
+        error: (e) => {
+          this.verAlerta('No se pudo editar', 'Error');
+        },
+      });
+    }
   }
-  
 
-  this._facturaServicio.add(modelo).subscribe({
-    next:(data) =>{
-      this.verAlerta("Factrua Creada Con exito","Listo"),
-      this.dialogoReferencia.close("creado")
-    },error:(e)=>{this.verAlerta("No se pudo crear","Error")}
-  })
-
-  
-}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.dataFactura) {
+      console.log(this.dataFactura.pagada)
+      this.formFactura.patchValue({
+        codigoFactura: this.dataFactura.codigoFactura,
+        cliente: this.dataFactura.cliente,
+        correo: this.dataFactura.correo,
+        ciudad: this.dataFactura.ciudad,
+        nit: this.dataFactura.nit,
+        totalFactura: this.dataFactura.totalFactura,
+        subTotal: this.dataFactura.subTotal,
+        iva: this.dataFactura.iva,
+        retencion: this.dataFactura.retencion,
+        fechaCreacion: this.dataFactura.fechaCreacion,
+        estado: this.dataFactura.estado,
+        pagada: this.dataFactura.pagada,
+        fechaPago: this.dataFactura.fechaPago,
+      });
+    }
+    this.tituloAccion = 'Editar';
+    this.botonAccion = 'Editar';
+  }
 }

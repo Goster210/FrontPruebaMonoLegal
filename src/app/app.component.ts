@@ -71,4 +71,15 @@ export class AppComponent implements AfterViewInit, OnInit {
         }
       });
   }
+
+  dialogEditarFactura(dataFactura: Facturas){
+    this.dialog
+      .open(DialogoAddEditComponent, { disableClose: true, width: '350px', data:dataFactura })
+      .afterClosed()
+      .subscribe((res) => {
+        if(res === "editado"){
+          this.listarFacturas();
+        }
+      });
+  }
 }
