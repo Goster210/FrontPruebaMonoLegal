@@ -1,0 +1,119 @@
+<div style="width: 70%; margin: 40px auto">
+  <h1>LISTADO DE FACTURAS</h1>
+  <button mat-raised-button color="primary" (click)="dialogNuevaFactura()">Crear Factura</button>
+  <mat-form-field>
+    <mat-label>Filtrar</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
+    />
+  </mat-form-field>
+
+  <div class="mat-elevation-z8 my-table">
+    <table mat-table [dataSource]="dataSource">
+      <!-- codigoFactura Column -->
+      <ng-container matColumnDef="codigoFactura">
+        <th mat-header-cell *matHeaderCellDef>codigoFactura</th>
+        <td mat-cell *matCellDef="let element">{{ element.codigoFactura }}</td>
+      </ng-container>
+
+      <!-- cliente Column -->
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef>cliente</th>
+        <td mat-cell *matCellDef="let element">{{ element.cliente }}</td>
+      </ng-container>
+
+      <!-- correo Column -->
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef>correo</th>
+        <td mat-cell *matCellDef="let element">{{ element.correo }}</td>
+      </ng-container>
+
+      <!-- ciudad Column -->
+      <ng-container matColumnDef="ciudad">
+        <th mat-header-cell *matHeaderCellDef>ciudad</th>
+        <td mat-cell *matCellDef="let element">{{ element.ciudad }}</td>
+      </ng-container>
+
+      <!-- nit Column -->
+      <ng-container matColumnDef="nit">
+        <th mat-header-cell *matHeaderCellDef>nit</th>
+        <td mat-cell *matCellDef="let element">{{ element.nit }}</td>
+      </ng-container>
+
+      <!-- totalFactura Column -->
+      <ng-container matColumnDef="totalFactura">
+        <th mat-header-cell *matHeaderCellDef>totalFactura</th>
+        <td mat-cell *matCellDef="let element">{{ element.totalFactura }}</td>
+      </ng-container>
+
+      <!-- subTotal Column -->
+      <ng-container matColumnDef="subTotal">
+        <th mat-header-cell *matHeaderCellDef>subTotal</th>
+        <td mat-cell *matCellDef="let element">{{ element.subTotal }}</td>
+      </ng-container>
+
+      <!-- iva Column -->
+      <ng-container matColumnDef="iva">
+        <th mat-header-cell *matHeaderCellDef>iva</th>
+        <td mat-cell *matCellDef="let element">{{ element.iva }}</td>
+      </ng-container>
+
+      <!-- retencion Column -->
+      <ng-container matColumnDef="retencion">
+        <th mat-header-cell *matHeaderCellDef>retencion</th>
+        <td mat-cell *matCellDef="let element">{{ element.retencion }}</td>
+      </ng-container>
+
+      <!-- fechaCreacion Column -->
+      <ng-container matColumnDef="fechaCreacion">
+        <th mat-header-cell *matHeaderCellDef>fechaCreacion</th>
+        <td mat-cell *matCellDef="let element">{{ element.fechaCreacion }}</td>
+      </ng-container>
+
+      <!-- estado Column -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>estado</th>
+        <td mat-cell *matCellDef="let element">{{ element.estado }}</td>
+      </ng-container>
+
+      <!-- pagada Column -->
+      <ng-container matColumnDef="pagada">
+        <th mat-header-cell *matHeaderCellDef>pagada</th>
+        <td mat-cell *matCellDef="let element">{{ element.pagada }}</td>
+      </ng-container>
+
+      <!-- fechaPago Column -->
+      <ng-container matColumnDef="fechaPago">
+        <th mat-header-cell *matHeaderCellDef>fechaPago</th>
+        <td mat-cell *matCellDef="let element">{{ element.fechaPago }}</td>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef style="width: 80px"></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary">
+            <mat-icon>file_open</mat-icon>
+          </button>
+          <button mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-raised-button color="acceny">Enviar Email</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>
