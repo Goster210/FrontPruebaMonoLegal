@@ -1,5 +1,141 @@
-<h1 mat-dialog-title>Crear una Factura</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
+<h1 mat-dialog-title>{{ tituloAccion }} una Factura</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formFactura">
+    <mat-grid-list cols="1" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Codigo Factura</mat-label>
+          <input matInput formControlName="codigoFactura" autocomplete="off" />
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre Cliente</mat-label>
+          <input matInput formControlName="cliente" autocomplete="off" />
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electronico</mat-label>
+          <input
+            matInput
+            formControlName="correo"
+            autocomplete="off"
+            type="email"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Ciudad</mat-label>
+          <input matInput formControlName="ciudad" autocomplete="off" />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nit</mat-label>
+          <input
+            matInput
+            formControlName="nit"
+            autocomplete="off"
+            type="number"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Total Factura</mat-label>
+          <input
+            matInput
+            formControlName="totalFactura"
+            autocomplete="off"
+            type="number"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Sub Total</mat-label>
+          <input
+            matInput
+            formControlName="subTotal"
+            autocomplete="off"
+            type="number"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>IVA</mat-label>
+          <input
+            matInput
+            formControlName="iva"
+            autocomplete="off"
+            type="number"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Retencion</mat-label>
+          <input
+            matInput
+            formControlName="retencion"
+            autocomplete="off"
+            type="number"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Creacion</mat-label>
+          <input
+            matInput
+            formControlName="fechaCreacion"
+            autocomplete="off"
+            type="date"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input matInput formControlName="estado" autocomplete="off" />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Pagada</mat-label>
+          <input matInput formControlName="pagada" autocomplete="off" />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Pago</mat-label>
+          <input
+            matInput
+            formControlName="fechaPago"
+            autocomplete="off"
+            type="date"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+  <button mat-raised-button color="primary" (click)="addFactura()" [disabled] ="formFactura.invalid">
+    {{ botonAccion }}
+  </button>
 </div>
