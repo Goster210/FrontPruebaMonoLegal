@@ -6,6 +6,9 @@ import { FacturasService } from './Services/facturas.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoAddEditComponent } from './Dialog/dialogo-add-edit/dialogo-add-edit.component';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogoDeleteComponent } from './Dialog/dialogo-delete/dialogo-delete.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,7 +35,8 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   constructor(
     private _facturaServicio: FacturasService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _SnackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -66,19 +70,50 @@ export class AppComponent implements AfterViewInit, OnInit {
       .open(DialogoAddEditComponent, { disableClose: true, width: '350px' })
       .afterClosed()
       .subscribe((res) => {
-        if(res === "creado"){
+        if (res === 'creado') {
           this.listarFacturas();
         }
       });
   }
 
-  dialogEditarFactura(dataFactura: Facturas){
+  dialogEditarFactura(dataFactura: Facturas) {
     this.dialog
-      .open(DialogoAddEditComponent, { disableClose: true, width: '350px', data:dataFactura })
+      .open(DialogoAddEditComponent, {
+        disableClose: true,
+        width: '350px',
+        data: dataFactura,
+      })
       .afterClosed()
       .subscribe((res) => {
-        if(res === "editado"){
+        if (res === 'editado') {
           this.listarFacturas();
+        }
+      });
+  }
+
+  verAlerta(message: string, action: string) {
+    this._SnackBar.open(message, action, {
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      duration: 3000,
+    });
+  }
+
+  dialogEliminarFactura(dataFactura: Facturas) {
+    this.dialog
+      .open(DialogoDeleteComponent, { disableClose: true, data: dataFactura })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res === 'eliminar') {
+          this._facturaServicio.delete(dataFactura.codigoFactura).subscribe({
+            next: (data) => {
+              this.verAlerta('La Factura fue eliminada', 'Listo'),
+                this.listarFacturas();
+            },
+            error: (e) => {
+              this.verAlerta('No se pudo eliminar', 'Error');
+            },
+          });
         }
       });
   }

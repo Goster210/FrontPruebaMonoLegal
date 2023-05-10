@@ -1,5 +1,5 @@
 <div style="width: 70%; margin: 40px auto">
-  <h1>LISTADO DE FACTURAS</h1>
+  <h1>LISTADO DE FACTURAS (PRUEBA MONOLEGAL)</h1>
   <button mat-raised-button color="primary" (click)="dialogNuevaFactura()">Crear Factura</button>
   <mat-form-field>
     <mat-label>Filtrar</mat-label>
@@ -98,7 +98,7 @@
           <button mat-icon-button color="primary" (click)="dialogEditarFactura(element)">
             <mat-icon>file_open</mat-icon>
           </button>
-          <button mat-icon-button color="warn">
+          <button mat-icon-button color="warn" (click)="dialogEliminarFactura(element)">
             <mat-icon>delete</mat-icon>
           </button>
           <button mat-raised-button color="acceny">Enviar Email</button>

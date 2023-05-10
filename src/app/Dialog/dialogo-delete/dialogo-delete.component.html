@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Eliminar Factura</h1>
+<div mat-dialog-content>
+
+    ¿Deseas eliminar la factura con el codigo: "{{dataFactura.codigoFactura}}"?
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">No, Volver</button>
+  <button mat-raised-button color="primary" (click)="confirmacionDelete()" cdkFocusInitial>
+    Si, deseo eliminar
+  </button>
+</div>

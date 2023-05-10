@@ -65,7 +65,7 @@ export class DialogoAddEditComponent implements OnInit {
   }
 
   addFactura() {
-    console.log(this.formFactura.value);
+
     const modelo: Facturas = {
       codigoFactura: this.formFactura.value.codigoFactura,
       cliente: this.formFactura.value.cliente,

@@ -29,10 +29,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 //uso de grillas
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DialogoAddEditComponent } from './Dialog/dialogo-add-edit/dialogo-add-edit.component';
+import { DialogoDeleteComponent } from './Dialog/dialogo-delete/dialogo-delete.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DialogoAddEditComponent
+    DialogoAddEditComponent,
+    DialogoDeleteComponent
   ],
   imports: [
     BrowserModule,
