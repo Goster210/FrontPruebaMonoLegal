@@ -39,4 +39,21 @@ div.mat-elevation-z8 {
   border-top: 2px solid #bbb;
 }
 
+.mat-list-item {
+  margin: 0px;
+}
+
+.mat-list {
+  margin: 25px;
+
+}
+
+.title {
+  text-align: center;
+}
+
+
+.centered-button {
+  margin: auto;
+}
 

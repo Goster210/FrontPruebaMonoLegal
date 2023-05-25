@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Facturas } from './Interfaces/facturas';
 import { FacturasService } from './Services/facturas.service';
 import { MatDialog } from '@angular/material/dialog';
+
 import { DialogoAddEditComponent } from './Dialog/dialogo-add-edit/dialogo-add-edit.component';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -120,6 +121,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   dialogEnviarEmail(dataFactura: Facturas) {
+    
     this._facturaServicio.sendEmail(dataFactura.codigoFactura).subscribe({
       next: (data) => {
         this.verAlerta(
@@ -129,6 +131,7 @@ export class AppComponent implements AfterViewInit, OnInit {
           this.listarFacturas();
       },
       error: (e) => {
+        console.log(e);
         this.verAlerta('No se pudo enviar el correo', 'Error');
       },
     });

@@ -5,7 +5,9 @@
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Codigo Factura</mat-label>
-          <input matInput formControlName="codigoFactura" autocomplete="off" />
+          <input matInput formControlName="codigoFactura" autocomplete="off" type="number"/>
+
+          
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -23,6 +25,12 @@
             autocomplete="off"
             type="email"
           />
+          <mat-error *ngIf="formFactura.hasError('correo') && !formFactura.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="formFactura.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -81,6 +89,8 @@
         </mat-form-field>
       </mat-grid-tile>
 
+
+
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Retencion</mat-label>
@@ -105,7 +115,7 @@
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Estado</mat-label>
-          <mat-select formControlName="estado" >
+          <mat-select formControlName="estado" [disabled]="true" >
             <mat-option value="primerrecordatorio">primerrecordatorio</mat-option>
             <mat-option value="segundorecordatorio">segundorecordatorio</mat-option>
           </mat-select>

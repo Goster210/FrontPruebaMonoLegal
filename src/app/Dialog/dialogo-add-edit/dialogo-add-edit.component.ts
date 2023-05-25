@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+
 import * as moment from 'moment';
 
 import { Facturas } from 'src/app/Interfaces/facturas';
@@ -28,9 +29,12 @@ export const MY_DATE_FORMATS = {
   providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }],
 })
 export class DialogoAddEditComponent implements OnInit {
+  
   formFactura: FormGroup;
   tituloAccion: string = 'Crear';
   botonAccion: string = 'Guardar';
+  
+  
 
   constructor(
     private _facturaServicio: FacturasService,
@@ -42,18 +46,19 @@ export class DialogoAddEditComponent implements OnInit {
     this.formFactura = this.fb.group({
       codigoFactura: ['', Validators.required],
       cliente: ['', Validators.required],
-      correo: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
       ciudad: ['', Validators.required],
       nit: ['', Validators.required],
-      totalFactura: ['', Validators.required],
+      totalFactura: ['', Validators.required, ],
       subTotal: ['', Validators.required],
       iva: ['', Validators.required],
       retencion: ['', Validators.required],
       fechaCreacion: ['', Validators.required],
-      estado: ['', Validators.required],
+      estado: ['primerrecordatorio', Validators.required],
       pagada: ['', Validators.required],
       fechaPago: ['', Validators.required],
     });
+    
   }
 
   verAlerta(message: string, action: string) {
@@ -67,7 +72,7 @@ export class DialogoAddEditComponent implements OnInit {
   addFactura() {
 
     const modelo: Facturas = {
-      codigoFactura: this.formFactura.value.codigoFactura,
+      codigoFactura: this.formFactura.value.codigoFactura.toString(),
       cliente: this.formFactura.value.cliente,
       correo: this.formFactura.value.correo,
       ciudad: this.formFactura.value.ciudad,
@@ -89,6 +94,7 @@ export class DialogoAddEditComponent implements OnInit {
             this.dialogoReferencia.close('creado');
         },
         error: (e) => {
+          console.log(e);
           this.verAlerta('No se pudo crear', 'Error');
         },
       });
@@ -123,8 +129,9 @@ export class DialogoAddEditComponent implements OnInit {
         pagada: this.dataFactura.pagada,
         fechaPago: this.dataFactura.fechaPago,
       });
+      this.tituloAccion = 'Editar';
+      this.botonAccion = 'Editar';
     }
-    this.tituloAccion = 'Editar';
-    this.botonAccion = 'Editar';
+
   }
 }

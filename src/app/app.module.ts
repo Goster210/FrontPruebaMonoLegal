@@ -31,6 +31,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { DialogoAddEditComponent } from './Dialog/dialogo-add-edit/dialogo-add-edit.component';
 import { DialogoDeleteComponent } from './Dialog/dialogo-delete/dialogo-delete.component';
 
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +59,10 @@ import { DialogoDeleteComponent } from './Dialog/dialogo-delete/dialogo-delete.c
     MatSnackBarModule,
     MatIconModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDividerModule,
+    MatListModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
