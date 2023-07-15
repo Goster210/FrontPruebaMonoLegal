@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endPoint:"http://localhost:5241/api/"
+  endPoint:"http://goster210-001-site1.htempurl.com/api/"
 };
 
 /*
