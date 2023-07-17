@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 import {Observable} from 'rxjs';
 import { Facturas } from '../Interfaces/facturas';
 
@@ -11,7 +11,7 @@ import { Facturas } from '../Interfaces/facturas';
 })
 export class FacturasService {
 
-  private apiUrl:string = "http://goster210-001-site1.htempurl.com/api/Factura/"
+  private apiUrl:string = environment.endPoint
 
   constructor(private http:HttpClient) { }
 
